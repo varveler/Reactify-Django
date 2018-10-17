@@ -9,6 +9,7 @@ class PostCreate extends Component {
     super(props)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleDraftChange = this.handleDraftChange.bind(this)
     this.clearForm = this.clearForm.bind(this)
     this.postTitleRef = React.createRef()
     this.state = {
@@ -54,11 +55,11 @@ class PostCreate extends Component {
   handleSubmit(event){
     event.preventDefault()
     let data = this.state
-    if (data['draft'] === 'on') {
-      data['draft'] = true
-    }else {
-      data['draft'] = false
-    }
+    // if (data['draft'] === 'on') {
+    //   data['draft'] = true
+    // }else {
+    //   data['draft'] = false
+    // }
     //console.log(data)
     this.createPost(data)
   }
@@ -77,6 +78,13 @@ class PostCreate extends Component {
       [key]: value
     })
   }
+
+  handleDraftChange(event){
+    this.setState({
+      draft: !this.state.draft
+    })
+  }
+
   clearForm(event){
     if (event) {
       event.preventDefault()
@@ -118,7 +126,8 @@ class PostCreate extends Component {
         </div>
         <div className='form-group'>
           <label for='draft'>Draft
-          <input type='checkbox' id='draft' name='draft' onChange={this.handleInputChange}/>
+          <input type='checkbox' checked={this.state.draft} id='draft' name='draft' onChange={this.handleDraftChange}/>
+          <button onClick={(event)=>{event.preventDefault();this.handleDraftChange()}}>CHange</button>
           </label>
         </div>
         <div className='form-group'>
